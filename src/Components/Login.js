@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import ic from "./images/digimonk.jpeg";
+import ic from "../images/digimonk.jpeg";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import OtpInput from "react-otp-input";
-import pimg from "./images/ba.png";
+
 import {
   MDBContainer,
   MDBBtn,

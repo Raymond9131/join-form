@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 import User from "../images/avatar1.png";
 import ImageUploader from "react-images-upload";
+import Header from "./Header";
 
 export default class StepOne extends Component {
   constructor(props) {
@@ -132,6 +133,9 @@ export default class StepOne extends Component {
 
     return (
       <>
+      <section>
+       
+      </section>
         <section>
           <Container>
             <h2 className="mt-5">Personal Details</h2>
