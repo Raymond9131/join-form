@@ -2,35 +2,32 @@ import React, { Component, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 import User from "../images/avatar1.png";
-import ImageUploader from "react-images-upload";
-import Header from "./Header";
+import axios from "axios";
 
 export default class StepOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
+      fname: "",
+      lname: "",
       dob: "",
       email: "",
-      sex: "",
+      gender: "",
       matrimony: "",
-      mobileno: "",
-      dateofjoining: "",
-      permanentaddress: "",
+      mobile: "",
+      doj: "",
       presentaddress: "",
-      photo: "",
-      firstnameError: "",
-      lastnameError: "",
+      permanentaddress: "",
+      fnameError: "",
+      lnameError: "",
       dobError: "",
       emailError: "",
-      sexError: "",
+      genderError: "",
       matrimonyError: "",
-      mobilenoError: "",
-      dateofjoiningError: "",
-      photoError: "",
-      permanentaddressError: "",
+      mobileError: "",
+      dojError: "",
       presentaddressError: "",
+      permanentaddressError: "",
     };
 
     this.handleAll1 = this.handleAll1.bind(this);
@@ -42,33 +39,31 @@ export default class StepOne extends Component {
 
   valid() {
     var phoneno = /^\d{10}$/;
-    if (this.state.firstname === "") {
-      this.setState({ firstnameError: "Firstname is Empty" });
+    if (this.state.fname === "") {
+      this.setState({ fnameError: "Firstname is Empty" });
     }
-    if (this.state.lastname === "") {
-      this.setState({ lastnameError: "Lastname is Empty" });
+    if (this.state.lname === "") {
+      this.setState({ lnameError: "Lastname is Empty" });
     }
     if (!this.state.email.includes("@")) {
       this.setState({ emailError: "Email is empty" });
     }
-    if (this.state.sex === "") {
-      this.setState({ sexError: "please choose your gender" });
+    if (this.state.gender === "") {
+      this.setState({ genderError: "please choose your gender" });
     }
     if (this.state.matrimony === "") {
       this.setState({ matrimonyError: "choose your marital status" });
     }
-    if (!this.state.mobileno === "") {
-      this.setState({ mobilenoError: "Fill your number" });
+    if (!this.state.mobile === "") {
+      this.setState({ mobileError: "Fill your number" });
     }
     if (this.state.dob === "") {
       this.setState({ dobError: "Date is missing" });
     }
-    if (this.state.dateofjoining === "") {
-      this.setState({ dateofjoiningError: "Date is missing" });
+    if (this.state.doj === "") {
+      this.setState({ dojError: "Date is missing" });
     }
-    if (this.state.photo === "") {
-      this.setState({ photoError: "Upload Image" });
-    }
+
     if (this.state.permanentaddress === "") {
       this.setState({ permanentaddressError: "Fill Address" });
     }
@@ -77,37 +72,81 @@ export default class StepOne extends Component {
     }
   }
 
+  componentDidMount = () => {
+    let id = localStorage.getItem("userId");
+    console.log(id);
+    if (id !== "") {
+      axios
+        .get("http://203.190.153.22:3002/api/get-user/"+id)
+        .then((data) => {
+          console.log(data);
+          this.setState(
+            {
+              fname: data.fname,
+              lname: data.lname,
+              dob: data.dob,
+              email: data.email,
+              gender: data.gender,
+              matrimony: data.matrimony,
+              mobile: data.mobile,
+              doj: data.doj,
+              presentaddress: data.presentaddress,
+              permanentaddress: data.permanentaddress,
+            },
+            () => {
+              console.log(this.state.fname);
+            }
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   submit = (e) => {
     e.preventDefault();
+    let id = localStorage.getItem("userId");
+    // console.log(id);
 
     this.valid();
     if (
-      this.state.firstname !== "" &&
-      this.state.lastname !== "" &&
+      this.state.fname !== "" &&
+      this.state.lname !== "" &&
       this.state.dob !== "" &&
       this.state.email !== "" &&
-      this.state.sex !== "" &&
+      this.state.gender !== "" &&
       this.state.matrimony !== "" &&
-      this.state.mobileno !== "" &&
-      this.state.dateofjoining !== "" &&
+      this.state.mobile !== "" &&
+      this.state.doj !== "" &&
       this.state.presentaddress !== "" &&
-      this.state.permanentaddress !== "" &&
-      this.state.photo !== ""
+      this.state.permanentaddress !== ""
     ) {
-      const obj = {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        dob: this.state.dob,
-        email: this.state.email,
-        sex: this.state.sex,
-        matrimony: this.state.matrimony,
-        mobileno: this.state.mobileno,
-        dateofjoining: this.state.dateofjoining,
-        permanentaddress: this.state.permanentaddress,
-        presentaddress: this.state.presentaddress,
-        photo: this.state.photo,
-      };
-      this.props.steponetotwo(obj);
+      try {
+        let data = {
+          firstname: this.state.fname,
+          lastname: this.state.lname,
+          dob: this.state.dob,
+          email: this.state.email,
+          gender: this.state.gender,
+          matrimony: this.state.matrimony,
+          mobile: this.state.mobile,
+          dateofjoining: this.state.doj,
+          presentaddress: this.state.presentaddress,
+          permanentaddress: this.state.permanentaddress,
+        };
+        console.log("pahla data", data);
+        axios({
+          method: "put",
+          url: "http://203.190.153.22:3002/api/update/empdetails/" + id,
+          data: data,
+        }).then((result) => {
+          console.log("result", result);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      this.props.steponetotwo();
     }
   };
 
@@ -129,13 +168,8 @@ export default class StepOne extends Component {
   };
 
   render() {
-    console.log("Ye google kiya", this.state);
-
     return (
       <>
-      <section>
-       
-      </section>
         <section>
           <Container>
             <h2 className="mt-5">Personal Details</h2>
@@ -147,22 +181,22 @@ export default class StepOne extends Component {
 
                     <input
                       type="text"
-                      name="firstname"
-                      value={this.state.firstname}
+                      name="fname"
+                      value={this.state.fname}
                       onChange={this.handleAll1}
                       placeholder="Firstname"
                     />
-                    <div className="error">{this.state.firstnameError}</div>
+                    <div className="error">{this.state.fnameError}</div>
 
                     <p>Last Name</p>
                     <input
                       type="text"
-                      name="lastname"
-                      value={this.state.lastname}
+                      name="lname"
+                      value={this.state.lname}
                       onChange={this.handleAll1}
                       placeholder="Lastname"
                     />
-                    <div classNAme="error">{this.state.lastnameError}</div>
+                    <div classNAme="error">{this.state.lnameError}</div>
 
                     <p>Date Of Birth</p>
                     <input
@@ -210,16 +244,18 @@ export default class StepOne extends Component {
 
               <Row>
                 <Col className="col-md-2">
-                  <p>Sex</p>
+                  <p>Gender</p>
                 </Col>
                 <Col className="col-md-3">
                   <div className="checklsbel">
                     <label>
                       <input
                         type="radio"
-                        name="sex"
+                        name="gender"
                         value="male"
-                        onChange={(e) => this.setState({ sex: e.target.value })}
+                        onChange={(e) =>
+                          this.setState({ gender: e.target.value })
+                        }
                       />
                       Male
                     </label>
@@ -231,16 +267,18 @@ export default class StepOne extends Component {
                     <label>
                       <input
                         type="radio"
-                        name="sex"
+                        name="gender"
                         value="female"
-                        onChange={(e) => this.setState({ sex: e.target.value })}
+                        onChange={(e) =>
+                          this.setState({ gender: e.target.value })
+                        }
                       />
                       Female
                     </label>
                   </div>
                 </Col>
                 <Col md="12">
-                  <div className="error">{this.state.sexError}</div>
+                  <div className="error">{this.state.genderError}</div>
                 </Col>
               </Row>
 
@@ -315,12 +353,12 @@ export default class StepOne extends Component {
                   <p>Mobile No.</p>
                   <input
                     type="number"
-                    name="mobileno"
-                    value={this.state.mobileno}
+                    name="mobile"
+                    value={this.state.mobile}
                     onChange={this.handleAll1}
                     placeholder="Enter Number"
                   />
-                  <div className="error">{this.state.mobilenoError}</div>
+                  <div className="error">{this.state.mobileError}</div>
                 </Col>
               </Row>
 
@@ -329,11 +367,11 @@ export default class StepOne extends Component {
                   <p>Date Of Joining</p>
                   <input
                     type="date"
-                    name="dateofjoining"
-                    value={this.state.dateofjoining}
+                    name="doj"
+                    value={this.state.doj}
                     onChange={this.handleAll1}
                   />
-                  <div className="error">{this.state.dateofjoiningError}</div>
+                  <div className="error">{this.state.dojError}</div>
                 </Col>
               </Row>
 
@@ -345,6 +383,7 @@ export default class StepOne extends Component {
                     value={this.state.presentaddress}
                     onChange={this.handleAll1}
                   ></textarea>
+                  <div className="error">{this.state.presentaddressError}</div>
                 </Col>
               </Row>
 
@@ -356,6 +395,9 @@ export default class StepOne extends Component {
                     value={this.state.permanentaddress}
                     onChange={this.handleAll1}
                   ></textarea>
+                  <div className="error">
+                    {this.state.permanentaddressError}
+                  </div>
                 </Col>
               </Row>
 

@@ -6,6 +6,7 @@ import Otp from "./Components/Otp";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
+import Upload from "./Components/Upload";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/thankyou" component={Thankyou} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/otp" component={Otp} />
+          <Route exact path="/upload" component={Upload} />
         </Switch>
       </BrowserRouter>
     </>

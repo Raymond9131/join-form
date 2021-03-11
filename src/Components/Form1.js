@@ -52,54 +52,54 @@ export default class Form1 extends Component {
   //   this.setState({ type: "complete", Form5: item });
   // };
 
-  finalsubmit = (e) => {
-    e.preventDefault();
-    console.log("final form submitted", this.state.Form1);
+  // finalsubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("final form submitted", this.state.Form1);
 
-    const data = {
-      firstname: this.state.Form1.firstname,
-      lastname: this.state.Form1.lastname,
-      dob: this.state.Form1.dob,
-      email: this.state.Form1.email,
-      sex: this.state.Form1.sex,
-      matrimony: "",
-      mobileno: "",
-      dateofjoining: "",
-      permanentaddress: "",
-      presentaddress: "",
-      photo: this.state.Form1.photo,
-      highschool: "",
-      highersecondry: "",
-      graduation: "",
-      postgraduation: "",
-      bankname: "",
-      ifsc: "",
-      bankaccountno: "",
-      emergencyname: "",
-      relation: "",
-      emergencycontact: "",
-      emergencyaddress: "",
-    };
+  //   const data = {
+  //     firstname: this.state.Form1.firstname,
+  //     lastname: this.state.Form1.lastname,
+  //     dob: this.state.Form1.dob,
+  //     email: this.state.Form1.email,
+  //     sex: this.state.Form1.sex,
+  //     matrimony: "",
+  //     mobileno: "",
+  //     dateofjoining: "",
+  //     permanentaddress: "",
+  //     presentaddress: "",
+  //     photo: this.state.Form1.photo,
+  //     highschool: "",
+  //     highersecondry: "",
+  //     graduation: "",
+  //     postgraduation: "",
+  //     bankname: "",
+  //     ifsc: "",
+  //     bankaccountno: "",
+  //     emergencyname: "",
+  //     relation: "",
+  //     emergencycontact: "",
+  //     emergencyaddress: "",
+  //   };
 
-    console.log("Data", data);
-    try {
-      axios
-        .post("http://203.190.153.22:4010/employee-form/submit", data)
-        //   // url: "http://203.190.153.22:3002/employee-form/submit",
-        //   headers: {
-        //     "Content-type": "application/json",
-        //   },
-        //   // body: JSON.stringify(data),
-        //   data: data,
-        // })
-        .then((result) => {
-          console.log(result);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-    this.props.history.push("/thankyou");
-  };
+  //   console.log("Data", data);
+  //   try {
+  //     axios
+  //       .post("http://203.190.153.22:4010/employee-form/submit", data)
+  //       //   // url: "http://203.190.153.22:3002/employee-form/submit",
+  //       //   headers: {
+  //       //     "Content-type": "application/json",
+  //       //   },
+  //       //   // body: JSON.stringify(data),
+  //       //   data: data,
+  //       // })
+  //       .then((result) => {
+  //         console.log(result);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   this.props.history.push("/thankyou");
+  // };
 
   render() {
     return (

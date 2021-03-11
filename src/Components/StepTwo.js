@@ -6,33 +6,38 @@ export default class StepTwo extends Component {
     super(props);
 
     this.state = {
-      file1: "",
-      Text: [
-        {
-          Name: "highschool",
-          
-        },
-        {
-          Name: "highersecondry",
-          
-        },
-        {
-          Name: "graduation",
-          
-        },
-        {
-          Name: "postgraduation",
-        },
-      ],
+      highschool: "",
+      highersecondry: "",
+      graduation: "",
+      postgraduation: "",
+
       d: [],
     };
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleSave(files) {
+    //Saving files to state for further use and closing Modal.
+    this.setState({
+      files: files,
+      open: false,
+    });
+  }
+
+  handleOpen() {
+    this.setState({
+      open: true,
+    });
   }
 
   componentDidMount = () => {
     console.log("name", this.props);
   };
-
-  
 
   mouse = (e) => {
     e.preventDefault();
@@ -73,24 +78,58 @@ export default class StepTwo extends Component {
           <Container>
             <h2 className="mt-5">Educational Details</h2>
 
-            {this.state.Text.map((c, index) => (
-              <>
-                <Row className="mt-4" key={c.Name}>
-                  <Col>
-                    <p>{c.Name}</p>
-                    <input
-                      type="file"
-                      value={this.state.name}
-                      name={c.Name}
-                      onChange={this.next(c.Name)}
-                    ></input>
-                  </Col>
-                </Row>
-              </>
-            ))}
+            <Row className="mt-4">
+              <Col>
+                <p>Highschool</p>
+                <input
+                  type="file"
+                  onChange={this.handleInputChange}
+                  ref={(input) => (this.fileInput = input)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+
+            <Row className="mt-4">
+              <Col>
+                <p>Highersecondry</p>
+                <input
+                  type="file"
+                  onChange={this.handleInputChange}
+                  ref={(input) => (this.fileInput = input)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+
+            <Row className="mt-4">
+              <Col>
+                <p>Graduation</p>
+                <input
+                  type="file"
+                  onChange={this.handleInputChange}
+                  ref={(input) => (this.fileInput = input)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+
+            <Row className="mt-4">
+              <Col>
+                <p>Postgraduation</p>
+                <input
+                  type="file"
+                  onChange={this.handleInputChange}
+                  ref={(input) => (this.fileInput = input)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+
             <Row className="mt-5">
               <Col md="12" className="text-center">
                 <button
+                  className="btn btn-dark"
                   onClick={() =>
                     this.props.steptwoprops({
                       step2Data: this.state,
@@ -98,7 +137,7 @@ export default class StepTwo extends Component {
                     })
                   }
                 >
-                  Next
+                  Save & Next
                 </button>
               </Col>
             </Row>

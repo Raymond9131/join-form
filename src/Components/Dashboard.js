@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import Header from "./Header";
-import { Container, Row, Col, Table, Card, Dropdown } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Table,
+  Card,
+  Dropdown,
+  Button,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 export default class Dashboard extends Component {
   render() {
@@ -57,26 +67,34 @@ export default class Dashboard extends Component {
                               <td>
                                 <Dropdown>
                                   <Dropdown.Toggle
+                                    className="btn-danger"
                                     variant="success"
                                     id="dropdown-basic"
                                   >
-                                    Dropdown Button
+                                    Select Status
                                   </Dropdown.Toggle>
 
                                   <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">
-                                      Action
+                                      Draft
                                     </Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">
-                                      Another action
+                                      Pending HR
                                     </Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">
-                                      Something else
+                                      Complete
                                     </Dropdown.Item>
                                   </Dropdown.Menu>
                                 </Dropdown>
                               </td>
-                              <td>@mdo</td>
+                              <td>
+                                <Link to="/">
+                                  <VisibilityIcon
+                                    fontSize="large"
+                                    color="secondary"
+                                  />
+                                </Link>
+                              </td>
                             </tr>
                           </tbody>
                         </Table>
